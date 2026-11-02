@@ -1,6 +1,7 @@
 package com.pluralsight;
 
-import java.io.File;
+import java.io.BufferedReader;
+import java.io.FileReader;
 import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
@@ -20,6 +21,7 @@ import java.util.Scanner;
  *       the file format above, add a constructor and getters.
  *       This class does not compile until Transaction exists.
  */
+
 public class FinancialTracker {
 
     /* ------------------------------------------------------------------
@@ -79,6 +81,29 @@ public class FinancialTracker {
         // TODO: create file if it does not exist, then read each line,
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
+
+        Scanner myScanner = new Scanner(System.in);
+            try (BufferedReader bufReader = new BufferedReader(new FileReader(fileName))) {
+                String trans;
+
+                while ((trans = bufReader.readLine()) != null) {
+                    String[] data = trans.split("\\|");
+
+                    LocalDate date = LocalDate.parse(data[0]);
+                    LocalTime time = LocalTime.parse(data[1]);
+                    String description = data[2];
+                    String vendor = data[3];
+                    double price = Double.parseDouble(data[4]);
+
+                    Transaction transaction = new Transaction(date, time, description, vendor, price);
+                    transactions.add(transaction);
+                }
+            } catch (Exception ex) {
+                System.out.println("Could not read the file.");
+            }
+
+
+
     }
 
     /* ------------------------------------------------------------------
