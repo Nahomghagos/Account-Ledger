@@ -1,8 +1,8 @@
 package com.pluralsight;
 
-import java.io.BufferedReader;
-import java.io.FileReader;
+import java.io.*;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
@@ -118,10 +118,45 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
         // TODO
-        System.out.println("please enter the current Date. yyyy-MM-dd ");
-        LocalDate dateScanner= LocalDate.parse(scanner.nextLine() ,DATE_FMT);
-        System.out.println("please enter the current Time. ");
-        LocalTime timeScanner= LocalTime.parse(scanner.nextLine(),TIME_FMT);
+        System.out.println("please enter the date and time yyyy-MM-dd HH:mm:ss ");
+        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(),DATETIME_FMT);
+        System.out.println("please enter the description. ");
+        String description = scanner.nextLine();
+        System.out.println("please enter the name of the vendor");
+        String vendor = scanner.nextLine();
+        System.out.println("please enter the amount you are depositing. ");
+        double price = Double.parseDouble(scanner.nextLine());
+
+
+        LocalDate date = dateTime.toLocalDate();
+        LocalTime time = dateTime.toLocalTime();
+
+        Transaction deposit = new Transaction(
+                date,
+                time,
+                description,
+                vendor,
+                price
+        );
+        transactions.add(deposit);
+            String line = deposit.getDate().format(DATE_FMT) + "|" +
+                    deposit.getTime().format(TIME_FMT) + "|" +
+                    deposit.getDescription() + "|" +
+                    deposit.getVendor() + "|" +
+                    deposit.getPrice();
+
+            try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+                writer.write(line);
+                writer.newLine();
+                System.out.println("Deposit added successfully.");
+            } catch (IOException ex) {
+                System.out.println("Could not save the transaction.");
+            }
+        }
+
+
+
+
 
 
 
