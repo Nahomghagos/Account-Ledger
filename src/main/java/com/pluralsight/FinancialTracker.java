@@ -96,7 +96,7 @@ public class FinancialTracker {
                     double price = Double.parseDouble(data[4]);
 
                     Transaction transaction = new Transaction(date, time, description, vendor, price);
-                    transactions.add(transaction);
+                    transactions.add(0, transaction);
                 }
             } catch (Exception ex) {
                 System.out.println("Could not read the file.");
@@ -137,8 +137,15 @@ public class FinancialTracker {
                 description,
                 vendor,
                 price
+
+
         );
-        transactions.add(deposit);
+        transactions.add(0, deposit);
+        if (price < 0) {
+            System.out.println("please try again it must be a positive amount ");
+            return;
+        }
+
             String line = deposit.getDate().format(DATE_FMT) + "|" +
                     deposit.getTime().format(TIME_FMT) + "|" +
                     deposit.getDescription() + "|" +
@@ -152,12 +159,6 @@ public class FinancialTracker {
             } catch (IOException ex) {
                 System.out.println("Could not save the transaction.");
             }
-        }
-
-
-
-
-
 
 
     }
@@ -169,6 +170,54 @@ public class FinancialTracker {
      */
     private static void addPayment(Scanner scanner) {
         // TODO
+
+        System.out.println("please enter the date and time yyyy-MM-dd HH:mm:ss ");
+        LocalDateTime dateTime = LocalDateTime.parse(scanner.nextLine(),DATETIME_FMT);
+        System.out.println("please enter the description. ");
+        String description = scanner.nextLine();
+        System.out.println("please enter the name of the vendor");
+        String vendor = scanner.nextLine();
+        System.out.println("please enter the amount you are depositing. ");
+        double price = Double.parseDouble(scanner.nextLine());
+
+
+        LocalDate date = dateTime.toLocalDate();
+        LocalTime time = dateTime.toLocalTime();
+        double negativePrice= -price;
+
+        Transaction deposit = new Transaction(
+                date,
+                time,
+                description,
+                vendor,
+                negativePrice
+
+
+        );
+        transactions.add(0, deposit);
+
+        if (price < 0) {
+            System.out.println("please try again it must be a positive amount ");
+            return;
+        }
+
+        String line = deposit.getDate().format(DATE_FMT) + "|" +
+                deposit.getTime().format(TIME_FMT) + "|" +
+                deposit.getDescription() + "|" +
+                deposit.getVendor() + "|" +
+                deposit.getPrice();
+
+
+
+
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
+            writer.write(line);
+            writer.newLine();
+            System.out.println("payment made successfully.");
+        } catch (IOException ex) {
+            System.out.println("Could not save the transaction.");
+        }
+
     }
 
     /* ------------------------------------------------------------------
