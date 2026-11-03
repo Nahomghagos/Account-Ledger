@@ -118,6 +118,13 @@ public class FinancialTracker {
      */
     private static void addDeposit(Scanner scanner) {
         // TODO
+        System.out.println("please enter the current Date. yyyy-MM-dd ");
+        LocalDate dateScanner= LocalDate.parse(scanner.nextLine() ,DATE_FMT);
+        System.out.println("please enter the current Time. ");
+        LocalTime timeScanner= LocalTime.parse(scanner.nextLine(),TIME_FMT);
+
+
+
     }
 
     /**
