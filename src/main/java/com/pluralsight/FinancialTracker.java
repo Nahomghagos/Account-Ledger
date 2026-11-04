@@ -353,11 +353,49 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input) {
-                case "1" -> {/* TODO – month-to-date report */ }
-                case "2" -> {/* TODO – previous month report */ }
-                case "3" -> {/* TODO – year-to-date report   */ }
-                case "4" -> {/* TODO – previous year report  */ }
-                case "5" -> {/* TODO – prompt for vendor then report */ }
+                case "1" -> {/* TODO – month-to-date report */
+                        LocalDate today = LocalDate.now();
+
+                        LocalDate start = today.withDayOfMonth(1);
+                        LocalDate end = today;
+
+                        filterTransactionsByDate(start, end);
+                    }
+
+                case "2" -> {/* TODO – previous month report */
+                    LocalDate today = LocalDate.now();
+                    LocalDate start = today.withDayOfMonth(1).minusMonths(1);
+                    LocalDate end = today.withDayOfMonth(1).minusDays(1);
+
+                    filterTransactionsByDate(start, end);
+
+
+
+                }
+                case "3" -> {/* TODO – year-to-date report   */
+                    LocalDate today = LocalDate.now();
+                    LocalDate start = today.withDayOfYear(1);
+                    LocalDate end = today;
+
+                    filterTransactionsByDate(start, end);
+
+                }
+                case "4" -> {/* TODO – previous year report  */
+                    LocalDate today = LocalDate.now();
+
+                    LocalDate start = today.withDayOfYear(1).minusYears(1);
+                    LocalDate end = today.withDayOfYear(1).minusDays(1);
+
+                    filterTransactionsByDate(start, end);
+
+
+                }
+                case "5" -> {/* TODO – prompt for vendor then report */
+                    System.out.print("please enter vendor   ");
+                    String vendor = scanner.nextLine().trim();
+
+                    filterTransactionsByVendor(vendor);
+                }
                 case "6" -> customSearch(scanner);
                 case "0" -> running = false;
                 default -> System.out.println("Invalid option");
@@ -370,10 +408,43 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
         // TODO – iterate transactions, print those within the range
+
+            for (Transaction transaction : transactions) {
+                LocalDate transactionDate = transaction.getDate();
+
+                if (transactionDate != null
+                        && transactionDate.compareTo(start) >= 0
+                        && transactionDate.compareTo(end) <= 0) {
+
+                    System.out.println(
+                            transaction.getDate() + " | " +
+                                    transaction.getTime() + " | " +
+                                    transaction.getDescription() + " | " +
+                                    transaction.getVendor() + " | " +
+                                    transaction.getPrice()
+                    );
+                }
+            }
+
+
+
     }
 
     private static void filterTransactionsByVendor(String vendor) {
         // TODO – iterate transactions, print those with matching vendor
+        for (Transaction transaction : transactions) {
+                if (transaction.getVendor().equalsIgnoreCase(vendor)) {
+                    System.out.println(
+                            transaction.getDate() + " | " +
+                                    transaction.getTime() + " | " +
+                                    transaction.getDescription() + " | " +
+                                    transaction.getVendor() + " | " +
+                                    transaction.getPrice()
+                    );
+                }
+            }
+
+
     }
 
     private static void customSearch(Scanner scanner) {
@@ -384,9 +455,9 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Utility parsers (you can reuse in many places)
        ------------------------------------------------------------------ */
-    private static LocalDate parseDate(String s) {
+    private static LocalDate parseDate(String date) {
         /* TODO – return LocalDate or null */
-        return null;
+            return null;
     }
 
     private static Double parseDouble(String s) {
