@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.Scanner;
 
 /*
@@ -82,8 +83,7 @@ public class FinancialTracker {
         //       parse the five fields, build a Transaction object,
         //       and add it to the transactions list.
 
-        Scanner myScanner = new Scanner(System.in);
-            try (BufferedReader bufReader = new BufferedReader(new FileReader(fileName))) {
+            try (BufferedReader bufReader = new BufferedReader(new FileReader(fileName)))        {
                 String trans;
 
                 while ((trans = bufReader.readLine()) != null) {
@@ -95,8 +95,14 @@ public class FinancialTracker {
                     String vendor = data[3];
                     double price = Double.parseDouble(data[4]);
 
-                    Transaction transaction = new Transaction(date, time, description, vendor, price);
-                    transactions.add(0, transaction);
+                    Transaction transaction = new Transaction(
+                            date,
+                            time,
+                            description,
+                            vendor,
+                            price
+                    );
+                    transactions.add(transaction);
                 }
             } catch (Exception ex) {
                 System.out.println("Could not read the file.");
@@ -141,7 +147,7 @@ public class FinancialTracker {
 
         );
         transactions.add(0, deposit);
-        if (price < 0) {
+        if (price <= 0) {
             System.out.println("please try again it must be a positive amount ");
             return;
         }
@@ -151,6 +157,10 @@ public class FinancialTracker {
                     deposit.getDescription() + "|" +
                     deposit.getVendor() + "|" +
                     deposit.getPrice();
+
+
+
+
 
             try (BufferedWriter writer = new BufferedWriter(new FileWriter(FILE_NAME, true))) {
                 writer.write(line);
@@ -194,9 +204,9 @@ public class FinancialTracker {
 
 
         );
-        transactions.add(0, deposit);
+        transactions.add(deposit);
 
-        if (price < 0) {
+        if (price <= 0) {
             System.out.println("please try again it must be a positive amount ");
             return;
         }
@@ -250,7 +260,37 @@ public class FinancialTracker {
     /* ------------------------------------------------------------------
        Display helpers: show data in neat columns
        ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format, newest first */ }
+    private static void displayLedger() { /* TODO – print all transactions in column format, newest first */
+
+//        Collections.sort(transactions, Collections.reverseOrder());
+//        for (Transaction t : transactions) {
+//            System.out.println(
+//                    t.getDate() + " | " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getPrice()
+//                );
+//            }
+
+            ArrayList<Transaction> newestFirst =
+                    new ArrayList<>(transactions);
+            Collections.reverse(newestFirst);
+            for (Transaction transaction : newestFirst) {
+                System.out.println(
+                        transaction.getDate() + " | " +
+                                transaction.getTime() + " | " +
+                                transaction.getDescription() + " | " +
+                                transaction.getVendor() + " | " +
+                                transaction.getPrice()
+                );
+
+        }
+
+
+
+
+
+
+
+    }
+
 
     private static void displayDeposits() { /* TODO – only amount > 0               */ }
 
