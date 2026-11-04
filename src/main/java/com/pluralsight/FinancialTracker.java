@@ -283,18 +283,40 @@ public class FinancialTracker {
 
         }
 
-
-
-
-
-
-
     }
 
 
-    private static void displayDeposits() { /* TODO – only amount > 0               */ }
+    private static void displayDeposits() {  //TODO – only amount > 0
 
-    private static void displayPayments() { /* TODO – only amount < 0               */ }
+            ArrayList<Transaction> deposits = new ArrayList<>();
+
+            for (Transaction transaction : transactions) {
+                if (transaction.getPrice() > 0) {
+                    deposits.add(transaction);
+                }
+            }
+
+            Collections.reverse(deposits);
+
+            for (Transaction transaction : deposits) {
+                System.out.println(
+                        transaction.getDate() + " | " +
+                                transaction.getTime() + " | " +
+                                transaction.getDescription() + " | " +
+                                transaction.getVendor() + " | " +
+                                transaction.getPrice()
+                );
+            }
+        }
+
+
+
+
+
+    private static void displayPayments() {// TODO – only amount < 0
+
+
+        }
 
     /* ------------------------------------------------------------------
        Reports menu
