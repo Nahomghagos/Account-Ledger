@@ -146,7 +146,7 @@ public class FinancialTracker {
 
 
         );
-        transactions.add(0, deposit);
+        transactions.add(deposit);
         if (price <= 0) {
             System.out.println("please try again it must be a positive amount ");
             return;
@@ -295,9 +295,7 @@ public class FinancialTracker {
                     deposits.add(transaction);
                 }
             }
-
             Collections.reverse(deposits);
-
             for (Transaction transaction : deposits) {
                 System.out.println(
                         transaction.getDate() + " | " +
@@ -309,11 +307,29 @@ public class FinancialTracker {
             }
         }
 
+        private static void displayPayments() {// TODO – only amount < 0
+        ArrayList<Transaction> payment = new ArrayList<>();
 
 
 
+        for (Transaction transaction: transactions) {
+            if (transaction.getPrice() < 0) {
+                payment.add(transaction);
+            }
 
-    private static void displayPayments() {// TODO – only amount < 0
+        }
+        Collections.reverse(payment);
+
+        for (Transaction transaction : payment) {
+
+            System.out.println(
+                    transaction.getDate() + " | " +
+                    transaction.getTime() + " | " +
+                    transaction.getDescription() + " | " +
+                    transaction.getVendor() + " | " +
+                    transaction.getPrice()
+            );
+        }
 
 
         }
