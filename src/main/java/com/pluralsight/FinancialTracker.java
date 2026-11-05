@@ -450,12 +450,53 @@ public class FinancialTracker {
     private static void customSearch(Scanner scanner) {
         // TODO – prompt for any combination of date range, description,
         //        vendor, and exact amount, then display matches
+
+        System.out.print("Start date (yyyy-MM-dd), or press Enter to skip: ");
+        String startInput = scanner.nextLine().trim();
+
+        System.out.print("End date (yyyy-MM-dd), or press Enter to skip: ");
+        String endInput = scanner.nextLine().trim();
+
+        System.out.print("Description, or press Enter to skip: ");
+        String descriptionInput = scanner.nextLine().trim();
+
+        System.out.print("Vendor, or press Enter to skip: ");
+        String vendorInput = scanner.nextLine().trim();
+
+        System.out.print("Amount, or press Enter to skip: ");
+        String PriceInput = scanner.nextLine().trim();
+
+        LocalDate start = null;
+        LocalDate end = null;
+        Double amount = null;
+
+        if(!startInput.isEmpty()) {
+            start= LocalDate.parse(startInput,DATE_FMT);
+        }
+        if (!endInput.isEmpty()) {
+            end = LocalDate.parse(endInput,DATE_FMT);
+        }
+        for (Transaction transaction: transactions){
+            boolean check = true;
+
+           LocalDate transactionDate = transaction.getDate();
+           if(start != null && transactionDate.compareTo(start) > 0){
+               check = false;
+           }if (end != null && transactionDate.compareTo(end) < 0) {
+               check = false;
+            }if(!descriptionInput.isEmpty() && descriptionInput.equalsIgnoreCase(transaction.getDescription())){
+               check = false;
+
+            }
+        }
+
+
     }
 
     /* ------------------------------------------------------------------
        Utility parsers (you can reuse in many places)
        ------------------------------------------------------------------ */
-    private static LocalDate parseDate(String date) {
+      private static LocalDate parseDate(String date) {
         /* TODO – return LocalDate or null */
             return null;
     }
