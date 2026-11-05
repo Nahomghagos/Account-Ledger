@@ -1,28 +1,31 @@
-# Project Title
+# Accounting Ledger
 
-<!-- HOW TO USE THIS TEMPLATE
-     Save it as README.md at the root of your project, next to pom.xml. Replace every comment like this one
-     with your own text; comments do not show on GitHub, so what you leave untouched shows as an empty heading.
-     Two sections are optional and say so: Class Diagram, and Data and configuration. When your project does not
-     need one, delete the whole section, heading included. Every other section stays. -->
+A console-based accounting application that allows users to record deposits and payments, 
+view ledger entries, and search transactions by date, description, vendor, and amount.
 
-<!-- One sentence under the title: what the app is, for whom.
-     Example: A console app that keeps a store's inventory in a csv file and lets a clerk search it. -->
+
 
 ## Description of the Project
 
-<!-- Three to five sentences. What the application does, who uses it, what problem it solves.
-     Write it for someone who has never seen the workbook: a recruiter, a classmate, you in six months. -->
+Accounting Ledger is a Java command-line application designed to help users track financial transactions.
+Users can add deposits and add payments to a transaction ledger, which is stored in a CSV file.
+The application allows users to view all transactions, filter entries by date and by vendor.
 
 
 ## Features
 
-<!-- One bullet per thing the app can do, in the order of your menu. Mark bonuses.
-     For an API (Capstone 3), one line per endpoint instead: method, path, what it does.
-     Be honest: list what works. If something is half done, say so under Future Work instead.
-     Example:
-     - Shows every product in the store
-     - Searches products by name (bonus) -->
+* Adds deposits to the accounting ledger.
+* Adds payment transactions to the accounting ledger.
+* Saves transactions to a CSV file.
+* Loads previously saved transactions when the application starts.
+* Displays all ledger transactions.
+* Displays only deposit transactions.
+* Displays only payment transactions.
+* Displays transactions from the current month.
+* Displays transactions from the previous month.
+* Displays transactions from the current year.
+* Displays transactions from the previous year.
+* Allows users to perform a custom search.
 
 -
 -

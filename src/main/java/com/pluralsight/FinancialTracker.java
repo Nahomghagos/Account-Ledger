@@ -468,16 +468,20 @@ public class FinancialTracker {
 
         LocalDate start = null;
         LocalDate end = null;
-        Double amount = null;
+        Double price = null;
 
         if(!startInput.isEmpty()) {
             start= LocalDate.parse(startInput,DATE_FMT);
         }
         if (!endInput.isEmpty()) {
             end = LocalDate.parse(endInput,DATE_FMT);
+
+        }if (!PriceInput.isEmpty()) {
+            price = Double.parseDouble(PriceInput);
         }
         for (Transaction transaction: transactions){
             boolean check = true;
+
 
            LocalDate transactionDate = transaction.getDate();
            if(start != null && transactionDate.compareTo(start) > 0){
@@ -487,7 +491,10 @@ public class FinancialTracker {
             }if(!descriptionInput.isEmpty() && descriptionInput.equalsIgnoreCase(transaction.getDescription())){
                check = false;
 
-            }
+            }if (!vendorInput.isEmpty()&& vendorInput.equalsIgnoreCase(transaction.getVendor())) {
+               check = false;
+
+            }if (price != null && PriceInput==transaction.getPrice() )
         }
 
 
