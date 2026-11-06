@@ -86,7 +86,7 @@ public class FinancialTracker {
 
 
     }
-
+            // asks the user for information checks if the number is postive and adds it to the list
 
     private static void addDeposit(Scanner scanner) {
         // TODO
@@ -138,7 +138,7 @@ public class FinancialTracker {
 
 
     }
-
+    // asks the user for information checks if the number is postive convers it to negative and adds it to the list
 
     private static void addPayment(Scanner scanner) {
         // TODO
@@ -151,6 +151,11 @@ public class FinancialTracker {
         String vendor = scanner.nextLine();
         System.out.println("please enter the amount you are depositing. ");
         double price = Double.parseDouble(scanner.nextLine());
+
+        if (price <= 0) {
+            System.out.println("please try again  ");
+            return;
+        }
 
 
         LocalDate date = dateTime.toLocalDate();
@@ -168,10 +173,7 @@ public class FinancialTracker {
         );
         transactions.add(deposit);
 
-        if (price <= 0) {
-            System.out.println("please try again it must be a positive amount ");
-            return;
-        }
+
 
         String line = deposit.getDate().format(DATE_FMT) + "|" +
                 deposit.getTime().format(TIME_FMT) + "|" +
@@ -217,11 +219,10 @@ public class FinancialTracker {
         }
     }
 
-
+    //code displays all transactions with the newest transactions first.
     private static void displayLedger() {
 
-
-            ArrayList<Transaction> newestFirst =
+        ArrayList<Transaction> newestFirst =
                     new ArrayList<>(transactions);
             Collections.reverse(newestFirst);
             for (Transaction transaction : newestFirst) {
@@ -236,7 +237,7 @@ public class FinancialTracker {
         }
 
     }
-
+    // displays only the deposits, with the newest deposit shown first.
 
     private static void displayDeposits() {
 
@@ -258,7 +259,7 @@ public class FinancialTracker {
                 );
             }
         }
-
+    // displays only the payments, with the newest payment shown first.
         private static void displayPayments() {
         ArrayList<Transaction> payment = new ArrayList<>();
 
@@ -303,7 +304,7 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input) {
-                case "1" -> {
+                case "1" -> { // range from the frist of the month till current date
                         LocalDate today = LocalDate.now();
 
                         LocalDate start = today.withDayOfMonth(1);
@@ -312,7 +313,7 @@ public class FinancialTracker {
                         filterTransactionsByDate(start, end);
                     }
 
-                case "2" -> {
+                case "2" -> { // ranges from the beginning of the previous month till the end of the previous month
                     LocalDate today = LocalDate.now();
                     LocalDate start = today.withDayOfMonth(1).minusMonths(1);
                     LocalDate end = today.withDayOfMonth(1).minusDays(1);
@@ -322,7 +323,7 @@ public class FinancialTracker {
 
 
                 }
-                case "3" -> {
+                case "3" -> {// range from today of the previous year till today of this year
                     LocalDate today = LocalDate.now();
                     LocalDate start = today.withDayOfYear(1);
                     LocalDate end = today;
@@ -330,7 +331,7 @@ public class FinancialTracker {
                     filterTransactionsByDate(start, end);
 
                 }
-                case "4" -> {
+                case "4" -> {// ranges from the fist of last year till the end of last year
                     LocalDate today = LocalDate.now();
 
                     LocalDate start = today.withDayOfYear(1).minusYears(1);
@@ -340,7 +341,7 @@ public class FinancialTracker {
 
 
                 }
-                case "5" -> {
+                case "5" -> { // searches by vendor
                     System.out.print("please enter vendor   ");
                     String vendor = scanner.nextLine().trim();
 
@@ -378,7 +379,6 @@ public class FinancialTracker {
     }
 
     private static void filterTransactionsByVendor(String vendor) {
-        // TODO – iterate transactions, print those with matching vendor
         for (Transaction transaction : transactions) {
                 if (transaction.getVendor().equalsIgnoreCase(vendor)) {
                     System.out.println(
@@ -394,7 +394,7 @@ public class FinancialTracker {
 
     }
 
-    private static void customSearch(Scanner scanner) {
+    private static void customSearch(Scanner scanner) { // optional filter that doesn't print if it matches a condition
 
         System.out.print("Start date (yyyy-MM-dd), or press Enter to skip: ");
         String startInput = scanner.nextLine().trim();
@@ -448,6 +448,9 @@ public class FinancialTracker {
                 match = true;
             }
 
+
+        }if (!match) {
+            System.out.println("could not be found");
         }
 
 
