@@ -7,11 +7,10 @@ view ledger entries, and search transactions by date, description, vendor, and a
 
 ## Description of the Project
 
-Accounting Ledger is a Java command-line application designed to help users track financial transactions.
-Users can add deposits and add payments to a transaction ledger, which is stored in a CSV file.
-The application allows users to view all transactions, filter entries by date and by vendor.
-
-
+Accounting Ledger is a Java command-line application designed to help users track financial transactions. 
+Users can add deposits and payments to a transaction ledger, which is stored in a CSV file. The application allows
+users to view all transactions, filter entries by date, and perform custom searches using any combination of search fields.
+The project demonstrates file handling, collections, user input, date comparisons, conditional filtering, and object-oriented programming in Java.
 ## Features
 
 * Adds deposits to the accounting ledger.
@@ -26,21 +25,42 @@ The application allows users to view all transactions, filter entries by date an
 * Displays transactions from the current year.
 * Displays transactions from the previous year.
 * Allows users to perform a custom search.
+* Custom search can filter by:
+* Start date
+* End date
+* Description
+* Vendor
+* Amount
+* Allows users to skip any custom-search field by pressing Enter.
+* Uses date comparisons to include only transactions within a selected date range.
+* Displays a message when no transactions match the selected criteria.
+* Includes a customized application title and console menu.
 
--
--
--
 
 ## User Stories
 
-<!-- The stories you worked from, one per bullet, in the format you learned in Workbook 3b:
-     As a [type of user], I want [some goal] so that [some reason].
-     Same text as the cards on your GitHub project board. -->
+* As a user, I want to add a deposit so that I can record money added to my account.
 
-- As a ..., I want ..., so that ...
-- As a ..., I want ..., so that ...
+* As a user, I want to make a payment so that I can record money spent from my account.
 
-## Setup
+* As a user, I want my transactions to be saved to a file so that my information is not lost when I close the application.
+
+* As a user, I want to view all ledger entries so that I can review my complete transaction history.
+
+* As a user, I want to view only deposits so that I can see the money added to my account.
+
+* As a user, I want to view only payments so that I can see the money I have spent.
+
+* As a user, I want to search transactions by date range so that I can view transactions from a specific period.
+
+* As a user, I want to search transactions by description or vendor so that I can find a particular transaction.
+
+* As a user, I want to search transactions by amount so that I can locate a payment or deposit with a specific value.
+
+* As a user, I want to leave search fields blank so that I can filter only by the information I know.
+
+* As a user, I want to receive a message when no transactions match my search so that I know the search was completed successfully.
+* ## Setup
 
 ### Prerequisites
 
@@ -55,16 +75,9 @@ The application allows users to view all transactions, filter entries by date an
 4. Open `src/main/java/com/pluralsight/YourMainClassName.java`. <!-- replace YourMainClassName with the class that has main -->
 5. Right-click inside the file and choose Run 'YourMainClassName.main()'.
 
-### Data and configuration
 
-<!-- OPTIONAL. Anything the program needs that is not code: data files and where they must sit, files the
-     program creates, a database script to run first, a settings file to edit (connection, port).
-     If there is nothing, delete this subsection, heading included.
-     Example:
-     - `inventory.csv` sits at the project root, next to `pom.xml`. The program reads it at start.
-     - `logs.txt` is created by the program at the project root on the first run. -->
 
--
+
 
 ## Technologies Used
 
@@ -73,6 +86,9 @@ The application allows users to view all transactions, filter entries by date an
 <!-- Add anything else you used: a library, Maven plugins, an external tool. For a console app this list is short. That is fine. -->
 
 ## Demo
+
+
+
 
 <!-- Pictures of the app running: the console for a console app, Insomnia or Swagger for an API.
      Screenshots are enough; a GIF is a bonus.
@@ -87,17 +103,22 @@ The application allows users to view all transactions, filter entries by date an
      Optional GIF: LICEcap (free, Windows and Mac, <https://www.cockos.com/licecap/>) records a region of the
      screen straight to a .gif. Keep it under 10 seconds and under 10 MB, save it into `images`. -->
 
-![Main menu](images/menu.png)
+![Main menu](Screen Recording 2026-11-05 214415.gif)
 
-![One feature in action](images/feature.png)
+![One feature in action](Screen Recording 2026-11-05 213224.gif)
 
 ## A piece of code I am proud of
 
 <!-- Paste one short block of your own code (5 to 15 lines) between the three backticks, then write two
      or three sentences: what it does and why you chose to write it that way. This is what you show on
      demo day and what you talk about in an interview. -->
-
 ```java
+LocalDate today = LocalDate.now();
+
+// calculate the date range for the previous calendar year
+LocalDate start = today.withDayOfYear(1).minusYears(1);
+LocalDate end = today.withDayOfYear(1).minusDays(1);
+
 
 ```
 
@@ -105,24 +126,23 @@ The application allows users to view all transactions, filter entries by date an
 
 <!-- What you would add or fix next, one bullet each. Unfinished bonuses belong here. -->
 
--
--
+-work more on the design 
+
 
 ## Resources
 
 <!-- What helped you: the workbook, the week's hub pages, a tutorial, a documentation page. Real links. -->
 
 - Java YearUp Fall 2026 hub: <https://raymaroun.github.io/yearup-java-fall2026/>
--
+- orace: <https://docs.oracle.com/en/java//>
 
 ## Author
 
-<!-- Your name and, if you like, your GitHub profile link. For a team workshop, one line per person with what each one built. -->
 
-- **Your Name**
+
+**Nahom Hagos**
 
 ## Thanks
 
-<!-- Optional. The people who helped: the instructor, a classmate who debugged with you, a mentor. -->
 
-- Thank you to ... for ...
+Thank you to Raymound ! for teaching me how to code !!!

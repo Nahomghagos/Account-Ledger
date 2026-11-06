@@ -9,25 +9,11 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Scanner;
 
-/*
- * Capstone skeleton – personal finance tracker.
- * ------------------------------------------------
- * File format  (pipe-delimited)
- *     yyyy-MM-dd|HH:mm:ss|description|vendor|amount
- * A deposit has a positive amount; a payment is stored
- * as a negative amount.
- *
- * TODO: create the Transaction class in this package first.
- *       One object = one line of the file. Decide its fields from
- *       the file format above, add a constructor and getters.
- *       This class does not compile until Transaction exists.
- */
+
 
 public class FinancialTracker {
 
-    /* ------------------------------------------------------------------
-       Shared data and formatters
-       ------------------------------------------------------------------ */
+
     private static final ArrayList<Transaction> transactions = new ArrayList<>();
     private static final String FILE_NAME = "transactions.csv";
 
@@ -44,6 +30,8 @@ public class FinancialTracker {
        ------------------------------------------------------------------ */
     public static void main(String[] args) {
         loadTransactions(FILE_NAME);
+
+        displayLogo();
 
         Scanner scanner = new Scanner(System.in);
         boolean running = true;
@@ -68,20 +56,7 @@ public class FinancialTracker {
         }
         scanner.close();
     }
-
-    /* ------------------------------------------------------------------
-       File I/O
-       ------------------------------------------------------------------ */
-
-    /**
-     * Load transactions from FILE_NAME.
-     * • If the file doesn’t exist, create an empty one so that future writes succeed.
-     * • Each line looks like: date|time|description|vendor|amount
-     */
     public static void loadTransactions(String fileName) {
-        // TODO: create file if it does not exist, then read each line,
-        //       parse the five fields, build a Transaction object,
-        //       and add it to the transactions list.
 
             try (BufferedReader bufReader = new BufferedReader(new FileReader(fileName)))        {
                 String trans;
@@ -112,16 +87,7 @@ public class FinancialTracker {
 
     }
 
-    /* ------------------------------------------------------------------
-       Add new transactions
-       ------------------------------------------------------------------ */
 
-    /**
-     * Prompt for ONE date+time string in the format
-     * "yyyy-MM-dd HH:mm:ss", plus description, vendor, amount.
-     * Validate that the amount entered is positive.
-     * Store the amount as-is (positive) and append to the file.
-     */
     private static void addDeposit(Scanner scanner) {
         // TODO
         System.out.println("please enter the date and time yyyy-MM-dd HH:mm:ss ");
@@ -173,11 +139,7 @@ public class FinancialTracker {
 
     }
 
-    /**
-     * Same prompts as addDeposit.
-     * Amount must be entered as a positive number,
-     * then converted to a negative amount before storing.
-     */
+
     private static void addPayment(Scanner scanner) {
         // TODO
 
@@ -230,9 +192,7 @@ public class FinancialTracker {
 
     }
 
-    /* ------------------------------------------------------------------
-       Ledger menu
-       ------------------------------------------------------------------ */
+
     private static void ledgerMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -257,17 +217,9 @@ public class FinancialTracker {
         }
     }
 
-    /* ------------------------------------------------------------------
-       Display helpers: show data in neat columns
-       ------------------------------------------------------------------ */
-    private static void displayLedger() { /* TODO – print all transactions in column format, newest first */
 
-//        Collections.sort(transactions, Collections.reverseOrder());
-//        for (Transaction t : transactions) {
-//            System.out.println(
-//                    t.getDate() + " | " + t.getTime() + " | " + t.getDescription() + " | " + t.getVendor() + " | " + t.getPrice()
-//                );
-//            }
+    private static void displayLedger() {
+
 
             ArrayList<Transaction> newestFirst =
                     new ArrayList<>(transactions);
@@ -286,7 +238,7 @@ public class FinancialTracker {
     }
 
 
-    private static void displayDeposits() {  //TODO – only amount > 0
+    private static void displayDeposits() {
 
             ArrayList<Transaction> deposits = new ArrayList<>();
 
@@ -334,9 +286,7 @@ public class FinancialTracker {
 
         }
 
-    /* ------------------------------------------------------------------
-       Reports menu
-       ------------------------------------------------------------------ */
+
     private static void reportsMenu(Scanner scanner) {
         boolean running = true;
         while (running) {
@@ -353,7 +303,7 @@ public class FinancialTracker {
             String input = scanner.nextLine().trim();
 
             switch (input) {
-                case "1" -> {/* TODO – month-to-date report */
+                case "1" -> {
                         LocalDate today = LocalDate.now();
 
                         LocalDate start = today.withDayOfMonth(1);
@@ -362,7 +312,7 @@ public class FinancialTracker {
                         filterTransactionsByDate(start, end);
                     }
 
-                case "2" -> {/* TODO – previous month report */
+                case "2" -> {
                     LocalDate today = LocalDate.now();
                     LocalDate start = today.withDayOfMonth(1).minusMonths(1);
                     LocalDate end = today.withDayOfMonth(1).minusDays(1);
@@ -372,7 +322,7 @@ public class FinancialTracker {
 
 
                 }
-                case "3" -> {/* TODO – year-to-date report   */
+                case "3" -> {
                     LocalDate today = LocalDate.now();
                     LocalDate start = today.withDayOfYear(1);
                     LocalDate end = today;
@@ -380,7 +330,7 @@ public class FinancialTracker {
                     filterTransactionsByDate(start, end);
 
                 }
-                case "4" -> {/* TODO – previous year report  */
+                case "4" -> {
                     LocalDate today = LocalDate.now();
 
                     LocalDate start = today.withDayOfYear(1).minusYears(1);
@@ -390,7 +340,7 @@ public class FinancialTracker {
 
 
                 }
-                case "5" -> {/* TODO – prompt for vendor then report */
+                case "5" -> {
                     System.out.print("please enter vendor   ");
                     String vendor = scanner.nextLine().trim();
 
@@ -403,11 +353,8 @@ public class FinancialTracker {
         }
     }
 
-    /* ------------------------------------------------------------------
-       Reporting helpers
-       ------------------------------------------------------------------ */
+
     private static void filterTransactionsByDate(LocalDate start, LocalDate end) {
-        // TODO – iterate transactions, print those within the range
 
             for (Transaction transaction : transactions) {
                 LocalDate transactionDate = transaction.getDate();
@@ -448,8 +395,6 @@ public class FinancialTracker {
     }
 
     private static void customSearch(Scanner scanner) {
-        // TODO – prompt for any combination of date range, description,
-        //        vendor, and exact amount, then display matches
 
         System.out.print("Start date (yyyy-MM-dd), or press Enter to skip: ");
         String startInput = scanner.nextLine().trim();
@@ -471,45 +416,57 @@ public class FinancialTracker {
         Double price = null;
 
         if(!startInput.isEmpty()) {
-            start= LocalDate.parse(startInput,DATE_FMT);
+            start= LocalDate.parse(startInput);
         }
         if (!endInput.isEmpty()) {
-            end = LocalDate.parse(endInput,DATE_FMT);
+            end = LocalDate.parse(endInput);
 
         }if (!PriceInput.isEmpty()) {
             price = Double.parseDouble(PriceInput);
         }
+        boolean match = false;
+
         for (Transaction transaction: transactions){
             boolean check = true;
 
 
            LocalDate transactionDate = transaction.getDate();
-           if(start != null && transactionDate.compareTo(start) > 0){
+           if(start != null && transactionDate.compareTo(start) < 0){
                check = false;
-           }if (end != null && transactionDate.compareTo(end) < 0) {
+           }if (end != null && transactionDate.compareTo(end) > 0) {
                check = false;
-            }if(!descriptionInput.isEmpty() && descriptionInput.equalsIgnoreCase(transaction.getDescription())){
-               check = false;
-
-            }if (!vendorInput.isEmpty()&& vendorInput.equalsIgnoreCase(transaction.getVendor())) {
+            }if(!descriptionInput.isEmpty() && !descriptionInput.equalsIgnoreCase(transaction.getDescription())){
                check = false;
 
-            }if (price != null && PriceInput==transaction.getPrice() )
+            }if (!vendorInput.isEmpty()&& !vendorInput.equalsIgnoreCase(transaction.getVendor())) {
+               check = false;
+
+            }if (price != null && Double.compare(transaction.getPrice(), price) != 0) {
+                check = false;
+            }if (check){
+                System.out.println(transaction);
+                match = true;
+
+            }
+
         }
 
 
     }
 
-    /* ------------------------------------------------------------------
-       Utility parsers (you can reuse in many places)
-       ------------------------------------------------------------------ */
+
       private static LocalDate parseDate(String date) {
-        /* TODO – return LocalDate or null */
             return null;
     }
 
     private static Double parseDouble(String s) {
-        /* TODO – return Double   or null */
         return null;
+    }private static void displayLogo() {
+        System.out.println("╔══════════════════════════════════╗");
+        System.out.println("║        ACCOUNTING LEDGER         ║");
+        System.out.println("║          Track Your Money        ║");
+        System.out.println("╚══════════════════════════════════╝");
     }
 }
+
+
