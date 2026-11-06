@@ -124,14 +124,14 @@ LocalDate end = today.withDayOfYear(1).minusDays(1);
 
 ## Future Work
 
-<!-- What you would add or fix next, one bullet each. Unfinished bonuses belong here. -->
+
 
 -work more on the design 
 
 
 ## Resources
 
-<!-- What helped you: the workbook, the week's hub pages, a tutorial, a documentation page. Real links. -->
+
 
 - Java YearUp Fall 2026 hub: <https://raymaroun.github.io/yearup-java-fall2026/>
 - orace: <https://docs.oracle.com/en/java//>

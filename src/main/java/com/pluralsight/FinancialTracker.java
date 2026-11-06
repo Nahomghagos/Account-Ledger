@@ -55,7 +55,7 @@ public class FinancialTracker {
             }
         }
         scanner.close();
-    }
+    }  //  reads transactions from a file and adds them to the transaction list.
     public static void loadTransactions(String fileName) {
 
             try (BufferedReader bufReader = new BufferedReader(new FileReader(fileName)))        {
@@ -259,7 +259,7 @@ public class FinancialTracker {
             }
         }
 
-        private static void displayPayments() {// TODO – only amount < 0
+        private static void displayPayments() {
         ArrayList<Transaction> payment = new ArrayList<>();
 
 
