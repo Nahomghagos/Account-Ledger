@@ -446,7 +446,6 @@ public class FinancialTracker {
             }if (check){
                 System.out.println(transaction);
                 match = true;
-
             }
 
         }

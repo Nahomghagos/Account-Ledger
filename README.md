@@ -103,9 +103,9 @@ The project demonstrates file handling, collections, user input, date comparison
      Optional GIF: LICEcap (free, Windows and Mac, <https://www.cockos.com/licecap/>) records a region of the
      screen straight to a .gif. Keep it under 10 seconds and under 10 MB, save it into `images`. -->
 
-![Main menu](Screen Recording 2026-11-05 214415.gif)
+![Main menu](ScreenRecording2026-11-05 214415.gif)
 
-![One feature in action](Screen Recording 2026-11-05 213224.gif)
+![One feature in action](ScreenRecording2026-11-05 213224.gif)
 
 ## A piece of code I am proud of
 
